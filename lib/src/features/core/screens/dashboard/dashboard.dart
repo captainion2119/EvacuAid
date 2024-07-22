@@ -1,6 +1,6 @@
 import "package:evacuaid/src/constants/colors.dart";
+import "package:evacuaid/src/features/core/screens/dashboard/widgets/map_widget.dart";
 import "package:flutter/material.dart";
-import "package:flutter_svg/svg.dart";
 
 class Dashboard extends StatefulWidget {
   Dashboard({super.key});
@@ -18,25 +18,47 @@ class _DashboardState extends State<Dashboard> {
       child: Scaffold(
         appBar: appBar(),
         backgroundColor: Colors.white,
-        body: Scaffold(
-          bottomNavigationBar: NavigationBar(
-            backgroundColor: Colors.transparent,
-            onDestinationSelected: (int index){
-              setState(() {
-                currentPageIndex = index;
-              });
-            },
-            indicatorColor: EvacPrimaryColor,
-            selectedIndex: currentPageIndex,
-            destinations: [
-              NavigationDestination(icon: Icon(Icons.storefront_outlined,color: Colors.white,), label: "Store", ),
-              NavigationDestination(icon: Icon(Icons.cancel_outlined, color: Colors.white,), label: "Placeholer"),
-              NavigationDestination(icon: Icon(Icons.inventory_2_outlined, color: Colors.white,), label: "Donate"),
-              NavigationDestination(icon: Icon(Icons.campaign_outlined, color: Colors.white,), label: "Broadcast"),
-            ],
+        body: Stack(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(bottom: 80),
+                child: MapSample()),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: NavigationBar(
+                backgroundColor: Colors.black,
+                onDestinationSelected: (int index){
+                  setState(() {
+                    currentPageIndex = index;
+                  });
+                },
+                indicatorColor: EvacPrimaryColor,
+                selectedIndex: currentPageIndex,
+                destinations: [
+                  NavigationDestination(icon: Icon(Icons.storefront_outlined,color: Colors.white,), label: "Store", ),
+                  NavigationDestination(icon: Icon(Icons.cancel_outlined, color: Colors.white,), label: "Placeholer"),
+                  NavigationDestination(icon: Icon(Icons.inventory_2_outlined, color: Colors.white,), label: "Donate"),
+                  NavigationDestination(icon: Icon(Icons.campaign_outlined, color: Colors.white,), label: "Broadcast"),
+                ],  
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 60),
+                child: FloatingActionButton.large(
+                  onPressed: (){},
+                  backgroundColor: Colors.red,
+                  child: Icon(Icons.warning_amber_rounded, size:60),
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  )
 
-
-          ),
+                ),
+              ),
+            ),
+          ],
         )
       ),
     );
@@ -45,13 +67,12 @@ class _DashboardState extends State<Dashboard> {
   AppBar appBar() {
     return AppBar(
       title: const Text(
-          'UI Test',
+          'EvacuAid',
           style: TextStyle(
-            color: Colors.black,
             fontSize: 20,
             fontWeight: FontWeight.w800,
           )),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black,
       elevation: 0.0,
       centerTitle: true,
       leading: GestureDetector(
@@ -60,7 +81,7 @@ class _DashboardState extends State<Dashboard> {
         Container(
           margin: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: const Color(0xffF7F8F8),
+              color: Colors.red,
               borderRadius: BorderRadius.circular(10)
           ),
           alignment: Alignment.center,
@@ -73,7 +94,7 @@ class _DashboardState extends State<Dashboard> {
           child: Container(
             margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                color: const Color(0xffF7F8F8),
+                color: Colors.red,
                 borderRadius: BorderRadius.circular(10)
             ),
             alignment: Alignment.center,
