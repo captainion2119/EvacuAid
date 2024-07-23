@@ -68,3 +68,7 @@ const String EvacEditProfile = "Edit Profile";
 const String EvacMenu1 = "Settings";
 const String EvacSaveProfile = "Save Profile";
 const String EvacDeleteProfile = "Delete";
+
+
+/* Radio Widget */
+const String EvacRadioPlayer = "Radio Broadcast";

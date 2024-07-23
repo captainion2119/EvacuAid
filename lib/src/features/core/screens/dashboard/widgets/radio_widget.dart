@@ -1,6 +1,8 @@
 import "dart:async";
 import "package:audioplayers/audioplayers.dart";
+import "package:evacuaid/src/constants/colors.dart";
 import "package:flutter/material.dart";
+import "package:internet_connection_checker_plus/internet_connection_checker_plus.dart";
 
 class RadioPlayer extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class _RadioPlayerState extends State<RadioPlayer> {
     "https://dc1.serverse.com/proxy/vaanmalar2/stream": "Station 4",
     "https://stream.zeno.fm/kzd2e3tx24zuv": "Station 5",
   };
+
 
   @override
   void initState() {
@@ -177,25 +180,81 @@ class _RadioPlayerState extends State<RadioPlayer> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              onPressed: playRadio,
-              child: const Text('Play Radio'),
-            ),
-            ElevatedButton(
-              onPressed: pauseRadio,
-              child: const Text('Pause Radio'),
-            ),
-            ElevatedButton(
-              onPressed: stopRadio,
-              child: const Text('Stop Radio'),
-            ),
-            ElevatedButton(
-              onPressed: resumeRadio,
-              child: const Text('Resume Radio'),
-            ),
-            ElevatedButton(
-              onPressed: nextRadio,
-              child: const Text('Next Radio'),
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          final bool netTest = await InternetConnection().hasInternetAccess;
+                          if(netTest){
+                            playRadio();
+                          } else {
+                            showErrorDialog("No internet connection. Please tune into xyz.xy FM on you device to recieve the latest updates.");
+                          }
+
+                        },
+                        child: Icon(Icons.play_arrow, size: 30,),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          backgroundColor: EvacPrimaryColor,
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ElevatedButton(
+                        onPressed: pauseRadio,
+                        child: Icon(Icons.pause_outlined, size: 30,),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          backgroundColor: EvacPrimaryColor,
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ElevatedButton(
+                        onPressed: stopRadio,
+                        child: Icon(Icons.stop_rounded, size: 30,),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          backgroundColor: EvacPrimaryColor,
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ElevatedButton(
+                        onPressed: resumeRadio,
+                        child: Icon(Icons.play_arrow, size: 30,),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          backgroundColor: EvacPrimaryColor,
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: ElevatedButton(
+                        onPressed: nextRadio,
+                        child: Icon(Icons.skip_next, size: 30,),
+                        style: ElevatedButton.styleFrom(
+                          shape: StadiumBorder(),
+                          backgroundColor: EvacPrimaryColor,
+                        )
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

@@ -23,3 +23,7 @@ const String EvacHamburgerIcon = "assets/icons/hamburger-icon.svg";
 
 /* Profile Images */
 const String EvacProfileImage = "assets/images/welcome_images/image-1.png";
+
+/* Store Images */
+const String EvacStoreSearch = "assets/icons/search-icon.svg";
+const String EvacStoreFilter = "assets/icons/filter-icon.svg";

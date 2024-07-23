@@ -2,6 +2,7 @@ import "package:evacuaid/src/constants/colors.dart";
 import "package:evacuaid/src/features/authentication/screens/splash_screen/splash_screen.dart";
 import "package:evacuaid/src/features/core/screens/dashboard/widgets/map_widget.dart";
 import "package:evacuaid/src/features/core/screens/dashboard/widgets/radio_widget.dart";
+import "package:evacuaid/src/features/core/screens/dashboard/widgets/store_widget.dart";
 import "package:evacuaid/src/features/core/screens/profile/profile_screen.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
@@ -18,7 +19,7 @@ class _DashboardState extends State<Dashboard> {
   int _currentPageIndex = 0;
   final List<Widget> _screens = [
     MapSample(),
-    Placeholder(),
+    StoreWidget(),
     Placeholder(),
     RadioPlayer(),
   ];
@@ -36,7 +37,7 @@ class _DashboardState extends State<Dashboard> {
           child: FloatingActionButton.large(
             onPressed: () {},
             backgroundColor: Colors.red,
-            child: Icon(Icons.warning_amber_rounded, size: 60),
+            child: Icon(Icons.warning_amber_rounded, size: 50),
             elevation: 10,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(100),
