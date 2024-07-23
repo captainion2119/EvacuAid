@@ -20,3 +20,6 @@ const String EvacForgotPassImage = "assets/images/forgot_password_images/image-1
 /* Dashboard Images */
 const String EvacLeftIcon = "assets/icons/left-icon.svg";
 const String EvacHamburgerIcon = "assets/icons/hamburger-icon.svg";
+
+/* Profile Images */
+const String EvacProfileImage = "assets/images/welcome_images/image-1.png";

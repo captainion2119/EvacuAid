@@ -55,3 +55,16 @@ const String EvacForgotEmailSubTitle = "Enter your registered E-Mail.";
 const String EvacOTPTitle = "Enter OTP";
 const String EvacOTPSubTitle = "Verification";
 const String EvacOTPMessage = "We've sent you an OTP on your registered Mail\n/ registered Phone Number on";
+
+/* Profile Page */
+const String EvacProfile = "Profile";
+const String EvacProfileTitle = "Profile";
+const String EvacProfileSubTitle = "Your Details";
+
+/* Edit Profile Page */
+const String EvacEditProfile = "Edit Profile";
+
+/* Menu Strings */
+const String EvacMenu1 = "Settings";
+const String EvacSaveProfile = "Save Profile";
+const String EvacDeleteProfile = "Delete";

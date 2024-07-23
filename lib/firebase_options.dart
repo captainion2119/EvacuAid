@@ -59,4 +59,5 @@ class DefaultFirebaseOptions {
     projectId: 'evacuaid-prod',
     storageBucket: 'evacuaid-prod.appspot.com',
   );
+
 }
