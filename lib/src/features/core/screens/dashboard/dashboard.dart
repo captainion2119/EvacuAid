@@ -1,8 +1,10 @@
 import "package:evacuaid/src/constants/colors.dart";
+import "package:evacuaid/src/features/authentication/screens/panic/panic_page.dart";
 import "package:evacuaid/src/features/authentication/screens/splash_screen/splash_screen.dart";
 import "package:evacuaid/src/features/core/screens/dashboard/widgets/map_widget.dart";
 import "package:evacuaid/src/features/core/screens/dashboard/widgets/radio_widget.dart";
 import "package:evacuaid/src/features/core/screens/dashboard/widgets/store_widget.dart";
+import "package:evacuaid/src/features/core/screens/donating/donating_page.dart";
 import "package:evacuaid/src/features/core/screens/profile/profile_screen.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
@@ -20,7 +22,7 @@ class _DashboardState extends State<Dashboard> {
   final List<Widget> _screens = [
     MapSample(),
     StoreWidget(),
-    Placeholder(),
+    DonatingPage(),
     RadioPlayer(),
   ];
 
@@ -35,7 +37,11 @@ class _DashboardState extends State<Dashboard> {
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(bottom:60),
           child: FloatingActionButton.large(
-            onPressed: () {},
+            onPressed: () {
+              showDialog(context: context, builder: (BuildContext context){
+                return HelpDialog();
+              });
+            },
             backgroundColor: Colors.red,
             child: Icon(Icons.warning_amber_rounded, size: 50),
             elevation: 10,
@@ -75,10 +81,10 @@ class _DashboardState extends State<Dashboard> {
                       label: "Placeholer"),
                   NavigationDestination(
                       icon: Icon(
-                        Icons.inventory_2_outlined,
+                        Icons.handshake_outlined,
                         color: Colors.white,
                       ),
-                      label: "Donate"),
+                      label: "Help"),
                   NavigationDestination(
                       icon: Icon(
                         Icons.campaign_outlined,
@@ -110,8 +116,6 @@ class _DashboardState extends State<Dashboard> {
             icon: Icon(Icons.chevron_left_rounded, size:20),
             color: Colors.black,
             onPressed: () {
-              SharedPreferences.getInstance().then((prefs) => prefs.setBool("hasSeenOnBoarding", false));
-              Get.to(() => SplashScreen());
             },
           ),
         ),

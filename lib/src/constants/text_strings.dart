@@ -72,3 +72,7 @@ const String EvacDeleteProfile = "Delete";
 
 /* Radio Widget */
 const String EvacRadioPlayer = "Radio Broadcast";
+
+/* Congrats Splash */
+const String EvacCongrats = "Congratulations!";
+const String EvacCongratsSubTitle = "You've successfully registered with EvacuAid!";

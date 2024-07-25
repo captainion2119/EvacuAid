@@ -49,6 +49,9 @@ dependencies:
   line_awesome_flutter: ^3.0.1
   audioplayers: ^6.0.0
   internet_connection_checker_plus: ^2.5.0
+  cloud_firestore: ^5.1.0
+  location: ^7.0.0
+  tflite_flutter: ^0.10.4
 
 dev_dependencies:
   flutter_test:
@@ -79,3 +82,5 @@ flutter:
     - assets/images/welcome_images/
     - assets/icons/
     - assets/images/forgot_password_images/
+    - assets/images/store_images/
+    - assets/model/

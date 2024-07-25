@@ -27,3 +27,8 @@ const String EvacProfileImage = "assets/images/welcome_images/image-1.png";
 /* Store Images */
 const String EvacStoreSearch = "assets/icons/search-icon.svg";
 const String EvacStoreFilter = "assets/icons/filter-icon.svg";
+const String EvacFireExtinguisher = "assets/images/store_images/fire-extinguisher.png";
+const String EvacFirstAid = "assets/images/store_images/first-aid.png";
+const String EvacSleepingBag = "assets/images/store_images/sleeping-bag.png";
+const String EvacWaterBottle = "assets/images/store_images/water-bottle.png";
+const String EvacTorch = "assets/images/store_images/torch.png";

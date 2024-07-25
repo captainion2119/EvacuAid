@@ -1,5 +1,7 @@
+import "package:evacuaid/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_screen.dart";
 import "package:evacuaid/src/features/authentication/screens/welcome/welcome_screen.dart";
 import "package:evacuaid/src/features/core/screens/dashboard/dashboard.dart";
+import "package:evacuaid/src/features/core/screens/teecalculator/tee_calculator_page.dart";
 import "package:evacuaid/src/repository/authentication_repository/exceptions/signup_email_password_failure.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/material.dart";
@@ -21,14 +23,15 @@ class AuthenticationRepository extends GetxController {
 
   _setInitialScreen(User? user) {
     user == null ? Get.offAll(() => const WelcomeScreen()) : Get.offAll(() =>
-        Dashboard());
+        OtpScreen());
   }
 
-  void phoneAuthentication(String phoneNo) async{
+  void phoneAuthentication(String phoneNo, String uid) async{
     await _auth.verifyPhoneNumber(
         phoneNumber: phoneNo,
         verificationCompleted: (credential) async{
           await _auth.signInWithCredential(credential);
+          // Get.to(()=> TeeCalculatorPage(familyId: uid, editMode: false));
         },
         verificationFailed: (e){
           if(e.code == 'invalid-phone-number'){
@@ -56,7 +59,7 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      firebaseUser.value != null ? Get.offAll(() => Dashboard()) : Get
+      firebaseUser.value != null ? Get.offAll(() => OtpScreen()) : Get
           .to(() => const WelcomeScreen());
     } on FirebaseAuthException catch (e) {
       final ex = SignupEmailPasswordFailure.code(e.code);

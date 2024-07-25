@@ -2,7 +2,9 @@ import "package:evacuaid/src/constants/colors.dart";
 import "package:evacuaid/src/constants/sizes.dart";
 import "package:evacuaid/src/constants/text_strings.dart";
 import "package:evacuaid/src/features/authentication/controllers/signup_controller.dart";
-import "package:evacuaid/src/features/authentication/screens/forgot_password/forgot_password_otp/otp_screen.dart";
+import "package:evacuaid/src/features/authentication/models/user_model.dart";
+import "package:evacuaid/src/features/core/screens/teecalculator/tee_calculator_page.dart";
+import "package:flutter/material.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 
@@ -27,6 +29,12 @@ class SignupFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.person_outline_rounded),
               ),
               style: const TextStyle(color: EvacSecondaryColor),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your full name';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: EvacFormHeight - 20),
             TextFormField(
@@ -36,6 +44,12 @@ class SignupFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.mail_outline_rounded),
               ),
               style: const TextStyle(color: EvacSecondaryColor),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your email';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: EvacFormHeight - 20),
             TextFormField(
@@ -45,6 +59,12 @@ class SignupFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.phone_rounded),
               ),
               style: const TextStyle(color: EvacSecondaryColor),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your phone number';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: EvacFormHeight - 20),
             TextFormField(
@@ -54,19 +74,37 @@ class SignupFormWidget extends StatelessWidget {
                 prefixIcon: Icon(Icons.fingerprint),
               ),
               style: const TextStyle(color: EvacSecondaryColor),
+              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter a password';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: EvacFormHeight - 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                  onPressed: () {
-                    if(_formKey.currentState!.validate()){
-                      // controller.registerUser(controller.email.text.trim(),  controller.password.text.trim());
-                      SignupController.instance.phoneAuthentication(controller.phoneNumber.text.trim());
-                      Get.to(() => const OtpScreen());
-                    }
-
-                  }, child: Text(EvacSignup.toUpperCase())),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final user = UserModel(
+                      fullName: controller.fullName.text.trim(),
+                      email: controller.email.text.trim(),
+                      phoneNumber: controller.phoneNumber.text.trim(),
+                      password: controller.password.text.trim(),
+                    );
+                    controller.createUser(user, (String uid) {
+                      // Navigate to TeeCalculatorPage after OTP verification
+                      Get.to(() => TeeCalculatorPage(familyId: uid, editMode: false));
+                    }).catchError((error) {
+                      // Handle error, e.g., show an error message
+                      print('Registration error: $error');
+                    });
+                  }
+                },
+                child: Text(EvacSignup.toUpperCase()),
+              ),
             )
           ],
         ),

@@ -21,7 +21,7 @@ class OtpScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image(image: AssetImage(EvacForgotPassImage), height: 300.0),
+              Image(image: AssetImage(EvacForgotPassImage), height: 100.0),
               Text(EvacOTPTitle, style: Theme.of(context).textTheme.headlineLarge!.merge(TextStyle(color: Colors.black))),
               const SizedBox(height: 40.0),
               Text("$EvacOTPMessage support@ltnoname.com", textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium!.merge(TextStyle(color: Colors.black)),),

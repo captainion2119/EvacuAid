@@ -1,3 +1,4 @@
+import "package:evacuaid/src/constants/colors.dart";
 import "package:flutter/material.dart";
 
 class CategoryModel{
@@ -16,41 +17,41 @@ class CategoryModel{
 
     categories.add(
       CategoryModel(
-          name: 'Egg',
-          iconPath: 'assets/icons/egg-plate.svg',
-          boxColor: Color(0xff92a3fd)
+          name: 'Water Bottle',
+          iconPath: 'assets/images/store_images/water-bottle.png',
+          boxColor: EvacPrimaryColor.withOpacity(0.11)
       )
     );
 
     categories.add(
         CategoryModel(
-            name: 'Fish',
-            iconPath: 'assets/icons/fish-plate.svg',
-            boxColor: Color(0xffc58bf2)
+            name: 'First Aid',
+            iconPath: 'assets/images/store_images/first-aid.png',
+            boxColor: EvacAccentColor.withOpacity(0.11)
         )
     );
 
     categories.add(
         CategoryModel(
-            name: 'Sushi',
-            iconPath: 'assets/icons/sushi-plate.svg',
-            boxColor: Color(0xff92a3fd)
+            name: 'Sleeping Bag',
+            iconPath: 'assets/images/store_images/sleeping-bag.png',
+            boxColor: EvacPrimaryColor.withOpacity(0.11)
         )
     );
 
     categories.add(
         CategoryModel(
-            name: 'Lobster',
-            iconPath: 'assets/icons/lobster-plate.svg',
-            boxColor: Color(0xffc58bf2)
+            name: 'Torch',
+            iconPath: 'assets/images/store_images/torch.png',
+            boxColor: EvacAccentColor.withOpacity(0.11)
         )
     );
 
     categories.add(
         CategoryModel(
-            name: 'Pie',
-            iconPath: 'assets/icons/pie-plate.svg',
-            boxColor: Color(0xff92a3fd)
+            name: 'Extinguisher',
+            iconPath: 'assets/images/store_images/fire-extinguisher.png',
+            boxColor: EvacPrimaryColor.withOpacity(0.11)
         )
     );
 

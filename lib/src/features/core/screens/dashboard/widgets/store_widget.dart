@@ -43,7 +43,7 @@ class _StoreWidgetState extends State<StoreWidget> {
               const Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Text(
-                  "Popular",
+                  "Popular Items",
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 18,
@@ -80,8 +80,7 @@ class _StoreWidgetState extends State<StoreWidget> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SvgPicture.asset(
-                          popularDiets[index].iconPath,
+                        Image(image: AssetImage(popularDiets[index].iconPath),
                           width: 65,
                           height: 65,
                         ),
@@ -122,7 +121,7 @@ class _StoreWidgetState extends State<StoreWidget> {
               )
             ],
           ),
-          const SizedBox(height: 40,),
+          const SizedBox(height: 80,),
         ],
       ),
     );
@@ -135,7 +134,7 @@ class _StoreWidgetState extends State<StoreWidget> {
         const Padding(
           padding: EdgeInsets.only(left:20),
           child: Text(
-            "Recommendation\nFor Diet",
+            "Recommended buys",
             style: TextStyle(
               color: Colors.black,
               fontSize: 18,
@@ -157,7 +156,7 @@ class _StoreWidgetState extends State<StoreWidget> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    SvgPicture.asset(diets[index].iconPath,
+                    Image(image: AssetImage(diets[index].iconPath),
                       height: 60,
                       width: 60,),
                     Column(
@@ -265,7 +264,7 @@ class _StoreWidgetState extends State<StoreWidget> {
                       ),
                       child: Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: SvgPicture.asset(categories[index].iconPath)
+                          child: Image(image: AssetImage(categories[index].iconPath))
                       ),
                     ),
                     Text(

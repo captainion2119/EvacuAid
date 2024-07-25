@@ -20,22 +20,22 @@ class PopularDietsModel {
 
     popularDiets.add(
       PopularDietsModel(
-          name: "Lobster",
-          iconPath: "assets/icons/lobster-plate.svg",
-          level: "Medium",
-          duration: "30mins",
-          calorie: "80kCal",
+          name: "Torch",
+          iconPath: "assets/images/store_images/torch.png",
+          level: "2 in Stock",
+          duration: "₹800",
+          calorie: "Grade A",
           boxIsSelected: true,
       )
     );
 
     popularDiets.add(
       PopularDietsModel(
-          name: "Pie",
-          iconPath: "assets/icons/pie-plate.svg",
-          level: "Easy",
-          duration: "30mins",
-          calorie: "200kCal",
+          name: "Water Bottle",
+          iconPath: "assets/images/store_images/water-bottle.png",
+          level: "5 in Stock",
+          duration: "₹500",
+          calorie: "Grade B",
           boxIsSelected: false
       )
     );

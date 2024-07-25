@@ -2,11 +2,15 @@ import "package:evacuaid/src/constants/colors.dart";
 import "package:evacuaid/src/constants/image_strings.dart";
 import "package:evacuaid/src/constants/sizes.dart";
 import "package:evacuaid/src/constants/text_strings.dart";
+import "package:evacuaid/src/features/authentication/screens/splash_screen/splash_screen.dart";
 import "package:evacuaid/src/features/core/screens/profile/update_profile_screen.dart";
 import "package:evacuaid/src/features/core/screens/profile/widgets/profile_menu.dart";
+import "package:evacuaid/src/features/core/screens/teecalculator/tee_calculator_page.dart";
+import "package:evacuaid/src/repository/authentication_repository/authentication_repository.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
 import "package:line_awesome_flutter/line_awesome_flutter.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -70,10 +74,15 @@ class ProfileScreen extends StatelessWidget {
 
               ProfileMenuWidget(title: "Settings", icon: LineAwesomeIcons.cog_solid, textColor: Colors.white, onPress: (){}),
               ProfileMenuWidget(title: "Billing Details", icon: LineAwesomeIcons.wallet_solid, textColor: Colors.white, onPress: (){}),
-              ProfileMenuWidget(title: "User Management", icon: LineAwesomeIcons.user_check_solid, textColor: Colors.white, onPress: (){}),
+              ProfileMenuWidget(title: "User Management", icon: LineAwesomeIcons.user_check_solid, textColor: Colors.white, onPress: (){
+              }),
               const Divider(color: Colors.grey,),
               ProfileMenuWidget(title: "Information", icon: LineAwesomeIcons.info_solid, textColor: Colors.white, onPress: (){}),
-              ProfileMenuWidget(title: "Logout", icon: LineAwesomeIcons.sign_out_alt_solid, textColor: Colors.red, endIcon: false, onPress: (){}),
+              ProfileMenuWidget(title: "Logout", icon: LineAwesomeIcons.sign_out_alt_solid, textColor: Colors.red, endIcon: false, onPress: (){
+                SharedPreferences.getInstance().then((prefs) => prefs.setBool("hasSeenOnBoarding", false));
+                Get.to(() => SplashScreen());
+                AuthenticationRepository.instance.logout();
+              }),
             ],
           ),
         ),

@@ -1,3 +1,4 @@
+import "package:evacuaid/src/constants/colors.dart";
 import "package:flutter/material.dart";
 
 class DietModel {
@@ -24,24 +25,24 @@ class DietModel {
 
     diets.add(
       DietModel(
-          name: "Egg",
-          iconPath: "assets/icons/egg-plate.svg",
-          level: "Easy",
-          duration: "30mins",
-          calorie: "180kCal",
-          boxColor: Color(0xff92a3fd),
+          name: "Fire Extinguisher",
+          iconPath: "assets/images/store_images/fire-extinguisher.png",
+          level: "In Stock",
+          duration: "₹3000",
+          calorie: "Grade A",
+          boxColor: EvacPrimaryColor.withOpacity(0.11),
           ViewIsSelected: true
       )
     );
 
     diets.add(
       DietModel(
-          name: "Sushi",
-          iconPath: "assets/icons/sushi-plate.svg",
-          level: "Medium",
-          duration: "1hr",
-          calorie: "200kCal",
-          boxColor: Color(0xffc58bf2),
+          name: "Sleeping Bag",
+          iconPath: "assets/images/store_images/sleeping-bag.png",
+          level: "In Stock",
+          duration: "₹4000",
+          calorie: "Grade B",
+          boxColor: EvacAccentColor.withOpacity(0.11),
           ViewIsSelected: false
       )
     );
