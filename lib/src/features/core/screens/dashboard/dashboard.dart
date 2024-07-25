@@ -1,3 +1,5 @@
+import "dart:collection";
+
 import "package:evacuaid/src/constants/colors.dart";
 import "package:evacuaid/src/features/authentication/screens/panic/panic_page.dart";
 import "package:evacuaid/src/features/authentication/screens/splash_screen/splash_screen.dart";
@@ -8,6 +10,7 @@ import "package:evacuaid/src/features/core/screens/donating/donating_page.dart";
 import "package:evacuaid/src/features/core/screens/profile/profile_screen.dart";
 import "package:flutter/material.dart";
 import "package:get/get.dart";
+import "package:google_maps_flutter/google_maps_flutter.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 class Dashboard extends StatefulWidget {
@@ -18,27 +21,45 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  Set<Marker> markers = HashSet<Marker>();
   int _currentPageIndex = 0;
-  final List<Widget> _screens = [
-    MapSample(),
-    StoreWidget(),
-    DonatingPage(),
-    RadioPlayer(),
-  ];
+
+  void _addMarker(double latitude, double longitude) {
+    setState(() {
+      markers.add(Marker(
+        markerId: MarkerId('${latitude}_${longitude}'),
+        position: LatLng(latitude, longitude),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+      ));
+    });
+  }
+
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      MapPage(),
+      StoreWidget(),
+      DonatingPage(), // Updated to include the callback
+      RadioPlayer(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar: appBar(),
-          backgroundColor: Colors.white,
-          body: _screens[_currentPageIndex], // Display current screen based on index
+        appBar: appBar(),
+        backgroundColor: Colors.white,
+        body: _screens[_currentPageIndex], // Display current screen based on index
         bottomNavigationBar: dashNavBar(), // Navigation bar for switching screens
         floatingActionButton: Padding(
-          padding: const EdgeInsets.only(bottom:60),
+          padding: const EdgeInsets.only(bottom: 60),
           child: FloatingActionButton.large(
             onPressed: () {
-              showDialog(context: context, builder: (BuildContext context){
+              showDialog(context: context, builder: (BuildContext context) {
                 return HelpDialog();
               });
             },
@@ -71,14 +92,14 @@ class _DashboardState extends State<Dashboard> {
                       Icons.home_outlined,
                       color: Colors.white,
                     ),
-                    label: "Store",
+                    label: "Home",
                   ),
                   NavigationDestination(
                       icon: Icon(
                         Icons.storefront_outlined,
                         color: Colors.white,
                       ),
-                      label: "Placeholer"),
+                      label: "Store"),
                   NavigationDestination(
                       icon: Icon(
                         Icons.handshake_outlined,

@@ -11,7 +11,7 @@ class HelpDialog extends StatefulWidget {
 class _HelpDialogState extends State<HelpDialog> with TickerProviderStateMixin {
   bool _showMessage = false;
   String _message = '';
-  late AnimationController _controller;
+  AnimationController? _controller;
   int _timeLeft = 10;
 
   Future<String?> getUserUID() async {
@@ -19,39 +19,42 @@ class _HelpDialogState extends State<HelpDialog> with TickerProviderStateMixin {
     return prefs.getString('userUID');
   }
 
-  @override
-  void initState() {
-    super.initState();
+  void startHelpTimer() {
     _controller = AnimationController(
       vsync: this,
       duration: Duration(seconds: 10),
-    )
-      ..addListener(() {
+    )..addListener(() {
+      if (mounted) {
         setState(() {
-          _timeLeft = 10 - (_controller.value * 10).toInt();
+          _timeLeft = 10 - (_controller!.value * 10).toInt();
         });
-      });
-    _controller.forward().whenComplete(() async {
+      }
+    });
+
+    _controller!.forward().whenComplete(() async {
       final uid = await getUserUID();
-      if (!_showMessage){
+      if (!_showMessage && mounted) {
         setState(() {
           _message = 'Help is on its way';
           _showMessage = true;
         });
-        await FirebaseFirestore.instance.collection('families').doc(uid).update({'needHelp': 'yes',});
+        await FirebaseFirestore.instance.collection('families').doc(uid).update({'needHelp': 'yes'});
       }
     });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
+    // Ensure the controller is initialized when the dialog is built
+    if (_controller == null) {
+      startHelpTimer();
+    }
 
     return AlertDialog(
       backgroundColor: EvacPrimaryColor,
@@ -63,55 +66,54 @@ class _HelpDialogState extends State<HelpDialog> with TickerProviderStateMixin {
           : Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-        Text(
-        'Do you need help?',
-        style: TextStyle(fontSize: 24),
+          Text(
+            'Do you need help?',
+            style: TextStyle(fontSize: 24),
+          ),
+          SizedBox(height: 20),
+          CircularProgressIndicator(
+            value: _controller?.value,
+            semanticsLabel: 'Linear progress indicator',
+          ),
+          SizedBox(height: 20),
+          Text(
+            'Time left: $_timeLeft seconds',
+            style: TextStyle(fontSize: 18),
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                elevation: 0,
+                shape: StadiumBorder(),
+                side: BorderSide.none),
+            child: Text('Yes'),
+            onPressed: () async {
+              final uid = await getUserUID();
+              setState(() {
+                _message = 'Help is on its way';
+                _showMessage = true;
+                _controller?.stop();
+              });
+              await FirebaseFirestore.instance.collection('families').doc(uid).update({'needHelp': 'yes',});
+            },
+          ),
+          SizedBox(height: 20),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  shape: StadiumBorder(),
+                  side: BorderSide.none),
+              child: Text('No'),
+              onPressed: () {
+                setState(() {
+                  _message = "Glad to know you're safe!\nConsider helping";
+                  _showMessage = true;
+                  _controller?.stop();
+                });
+              }
+          )
+        ],
       ),
-      SizedBox(height: 20),
-      CircularProgressIndicator(
-        value: _controller.value,
-        semanticsLabel: 'Linear progress indicator',
-      ),
-      SizedBox(height: 20),
-      Text(
-        'Time left: $_timeLeft seconds',
-        style: TextStyle(fontSize: 18),
-      ),
-      SizedBox(height: 20),
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            elevation: 0,
-            shape: StadiumBorder(),
-            side: BorderSide.none),
-        child: Text('Yes'),
-        onPressed: () async {
-          final uid = await getUserUID();
-          setState(() {
-            _message = 'Help is on its way';
-            _showMessage = true;
-            _controller.stop();
-          });
-          await FirebaseFirestore.instance.collection('families').doc(uid).update({'needHelp': 'yes',});
-        },
-      ),
-      SizedBox(height: 20),
-      ElevatedButton(
-          style: ElevatedButton.styleFrom(
-              elevation: 0,
-              shape: StadiumBorder(),
-              side: BorderSide.none),
-          child: Text('No'),
-      onPressed: () {
-        setState(() {
-          _message = "Glad to know you're safe!\nConsider helping";
-          _showMessage = true;
-          _controller.stop();
-        });
-      }
-    )]
-    ,
-    )
-    ,
     );
   }
 }
